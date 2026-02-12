@@ -3,8 +3,7 @@
 
 // // const TechNews = () => {
 // //   // You can update / add your own company news here
-  
-  
+
 // //   const newsItems = [
 // //     {
 // //       id: 1,
@@ -203,7 +202,7 @@
 // //               Tech<span className="text-red-600">News</span>
 // //             </h1>
 // //           </div>
-      
+
 // //         </div>
 
 // //         {/* Category Filter Buttons */}
@@ -279,7 +278,7 @@
 // //         )}
 
 // //         {/* Footer note */}
-        
+
 // //       </div>
 // //     </div>
 // //   );
@@ -304,7 +303,7 @@
 //         setError(null);
 
 //         // Assuming your backend has: GET /tech → returns array of news/tech items
-//         const response = await fetch('http://localhost:8000/tech', {
+//         const response = await fetch('https://atla-knots-solution-admin.onrender.com/tech', {
 //           method: 'GET',
 //           headers: {
 //             'Content-Type': 'application/json',
@@ -493,7 +492,7 @@
 //         setLoading(true);
 //         setError(null);
 
-//         const response = await fetch('http://localhost:8000/tech', {
+//         const response = await fetch('https://atla-knots-solution-admin.onrender.com/tech', {
 //           method: 'GET',
 //           headers: {
 //             'Content-Type': 'application/json',
@@ -692,8 +691,8 @@
 
 // export default TechNews;
 
-import React, { useState, useEffect } from 'react';
-import { Newspaper, ExternalLink, Clock, Cpu, Zap, Globe } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Newspaper, ExternalLink, Clock, Cpu, Zap, Globe } from "lucide-react";
 
 const TechNews = () => {
   const [newsItems, setNewsItems] = useState([]);
@@ -707,12 +706,15 @@ const TechNews = () => {
         setLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:8000/tech', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          "https://atla-knots-solution-admin.onrender.com/tech",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
           },
-        });
+        );
 
         if (!response.ok) {
           throw new Error(`Server responded with status ${response.status}`);
@@ -731,29 +733,33 @@ const TechNews = () => {
 
         const formattedData = items.map((item, index) => ({
           id: item._id || `item-${index + 1}`,
-          title: item.title || 'Untitled',
-          description: item.description || 'No description available',
-          date: item.updatedAt || item.createdAt
-            ? new Date(item.updatedAt || item.createdAt).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-              })
-            : new Date().toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-              }),
+          title: item.title || "Untitled",
+          description: item.description || "No description available",
+          date:
+            item.updatedAt || item.createdAt
+              ? new Date(item.updatedAt || item.createdAt).toLocaleDateString(
+                  "en-US",
+                  {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  },
+                )
+              : new Date().toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                }),
           // category is now an object → item.category.name
-          category: item.category?.name || 'General',
-          link: item.link || item.url || '#',
+          category: item.category?.name || "General",
+          link: item.link || item.url || "#",
           image: item.images && item.images.length > 0 ? item.images[0] : null,
         }));
 
         setNewsItems(formattedData);
       } catch (err) {
-        console.error('Error fetching tech news:', err);
-        setError('Failed to load news. Please try again later.');
+        console.error("Error fetching tech news:", err);
+        setError("Failed to load news. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -763,29 +769,33 @@ const TechNews = () => {
   }, []);
 
   // Get unique categories + "All"
-  const categories = ["All", ...new Set(newsItems.map(item => item.category))];
+  const categories = [
+    "All",
+    ...new Set(newsItems.map((item) => item.category)),
+  ];
 
   // Filter news based on selected category
-  const filteredNews = selectedCategory === "All"
-    ? newsItems
-    : newsItems.filter(item => item.category === selectedCategory);
+  const filteredNews =
+    selectedCategory === "All"
+      ? newsItems
+      : newsItems.filter((item) => item.category === selectedCategory);
 
   // Icon based on category
   const getIconForCategory = (category) => {
-    const cat = (category || '').toLowerCase();
-    if (cat.includes('ai') || cat.includes('artificial intelligence')) {
+    const cat = (category || "").toLowerCase();
+    if (cat.includes("ai") || cat.includes("artificial intelligence")) {
       return <Cpu className="w-5 h-5" />;
     }
-    if (cat.includes('hardware')) {
+    if (cat.includes("hardware")) {
       return <Zap className="w-5 h-5" />;
     }
-    if (cat.includes('company') || cat.includes('update')) {
+    if (cat.includes("company") || cat.includes("update")) {
       return <Cpu className="w-5 h-5" />;
     }
-    if (cat.includes('industry') || cat.includes('news')) {
+    if (cat.includes("industry") || cat.includes("news")) {
       return <Newspaper className="w-5 h-5" />;
     }
-    if (cat.includes('software') || cat.includes('developer')) {
+    if (cat.includes("software") || cat.includes("developer")) {
       return <Cpu className="w-5 h-5" />;
     }
     return <Globe className="w-5 h-5" />;
@@ -827,9 +837,10 @@ const TechNews = () => {
               key={category}
               onClick={() => setSelectedCategory(category)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300
-                ${selectedCategory === category
-                  ? "bg-red-600 text-white shadow-lg shadow-red-900/40"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700"
+                ${
+                  selectedCategory === category
+                    ? "bg-red-600 text-white shadow-lg shadow-red-900/40"
+                    : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700"
                 }`}
             >
               {category}

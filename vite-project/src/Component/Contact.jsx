@@ -73,7 +73,7 @@
 //     setStatus({ type: '', message: '' });
 
 //     try {
-//       const response = await axios.post('http://localhost:8000/api/contacts', formData, {
+//       const response = await axios.post('https://atla-knots-solution-admin.onrender.com/api/contacts', formData, {
 //         headers: { 'Content-Type': 'application/json' },
 //       });
 
@@ -383,7 +383,7 @@
 //     setStatus({ type: '', message: '' });
 
 //     try {
-//       const response = await axios.post('http://localhost:8000/api/contacts', formData, {
+//       const response = await axios.post('https://atla-knots-solution-admin.onrender.com/api/contacts', formData, {
 //         headers: { 'Content-Type': 'application/json' },
 //       });
 
@@ -712,7 +712,7 @@ const Contact = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/contact/create",
+        "https://atla-knots-solution-admin.onrender.com/api/contact/create",
         formData,
         {
           headers: { "Content-Type": "application/json" },
