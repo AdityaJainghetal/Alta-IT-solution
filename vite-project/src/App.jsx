@@ -11,6 +11,7 @@ import FitnessAppLanding from "./Component/Mobile/Fitnessapplanding";
 import Technology from "./Technology/Technology";
 import TechNews from "./Technology/TechNews";
 import RecentWork from "./Component/Recentwork/Recentwork";
+import CareerPage from "./Component/Carrer/Carrerpage";
 const App = () => {
   return (
     <div>
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="fitness" element={<FitnessAppLanding />} />
             <Route path="technology" element={<Technology />} />
             <Route path="technews" element={<TechNews />} />
+            <Route path="careers" element={<CareerPage />} />
             <Route path="/recentwork" element={<RecentWork/>}/>
 
             
